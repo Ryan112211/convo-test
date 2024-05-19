@@ -76,7 +76,8 @@ const AddMovie: React.FC = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+            disabled={!formData.title || !formData.upvotes || !formData.date}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             type="submit"
           >
             {formData.id ? "Edit Data" : "Add Data"}

@@ -6,8 +6,8 @@ const useIndexedDB = (key:string, initialState:IMovie[], dispatch:any, movies:IM
     const [isLoading, setIsLoading] = React.useState(true);
     React.useEffect(() => {
         get(key).then((savedState) => {
-          if (savedState) {
-            console.log("savedState", savedState);
+          if (savedState && savedState.length) {
+           
             dispatch({ type: "SET_MOVIES", payload: savedState });
           } else {
             dispatch({ type: "SET_MOVIES", payload: initialState });
@@ -20,7 +20,7 @@ const useIndexedDB = (key:string, initialState:IMovie[], dispatch:any, movies:IM
         if (!isLoading) {
           set(key, movies);
         }
-      }, [movies, isLoading]);
+      }, [movies,key, isLoading]);
 
 };
 
