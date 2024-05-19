@@ -5,4 +5,7 @@ export default {
     '<rootDir>/bower_components/',
     '<rootDir>/node_modules/',
   ],
+  "moduleNameMapper": {
+    "^@/(.*)$": "<rootDir>/src/$1"
+  }
 };

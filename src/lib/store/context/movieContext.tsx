@@ -1,41 +1,52 @@
-// context/todoContext.tsx
+import * as React from "react";
+import { IFormMovie, IMovie, MovieAction } from "@/types/movie";
+import { movieReducer } from "../reducers/movieReducer";
+import useIndexedDB from "@/hooks/useIndexDb";
 
-import * as React from 'react';
-import { IMovie, MovieAction} from '@/types/movie';
-import { movieReducer } from '../reducers/movieReducer';
-
-
-export const TodoContext = React.createContext<{
+export const MovieContext = React.createContext<{
   movies: IMovie[];
   dispatch: React.Dispatch<MovieAction>;
+  formData: IFormMovie;
+  setFormData: React.Dispatch<React.SetStateAction<IFormMovie>>;
 } | null>(null);
 
-const MovieProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
-  const [movies, dispatch] = React.useReducer(movieReducer, [
+const MovieProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const initialState = [
     {
       id: 1,
-      title: 'The Shawshank Redemption',
-      upvoted: 0,
-      date: new Date('1994'),
+      title: "The Shawshank Redemption",
+      upvotes: 40,
+      date: new Date("1994"),
     },
     {
       id: 2,
-      title: 'The Godfather',
-      upvoted: 0,
-      date: new Date('1972'),
+      title: "The Godfather",
+      upvotes: 20,
+      date: new Date("1972"),
     },
     {
       id: 3,
-      title: 'The Dark Knight',
-      upvoted: 0,
-      date: new Date('2008'),
+      title: "The Dark Knight",
+      upvotes: 10,
+      date: new Date("2008"),
     },
-   
-  ]);
+  ];
+  const [movies, dispatch] = React.useReducer(movieReducer, initialState);
+
+  const [formData, setFormData] = React.useState<IFormMovie>({
+    title: "",
+    upvotes: 0,
+    date: new Date(),
+  });
+
+  useIndexedDB("movies", initialState, dispatch, movies);
+
   return (
-    <TodoContext.Provider value={{ movies, dispatch }}>
+    <MovieContext.Provider value={{ movies, dispatch, formData, setFormData }}>
       {children}
-    </TodoContext.Provider>
+    </MovieContext.Provider>
   );
 };
 export default MovieProvider;

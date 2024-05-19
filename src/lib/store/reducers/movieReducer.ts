@@ -10,13 +10,15 @@ export const movieReducer = (state: IMovie[], action: MovieAction): IMovie[] => 
 
       case 'UPDATE_MOVIE':
         return state.map((movie) =>
-       
-          movie.id === action.payload ? { ...movie} : movie
-          
+          movie.id === action.payload.id ? action.payload : movie
         );
 
       case 'DELETE_MOVIE':
         return state.filter((movie) => movie.id !== action.payload);
+
+      case 'SET_MOVIES':
+        return action.payload;
+        
 
 
 

@@ -1,21 +1,19 @@
-import AddTodo from "./components/AddMovie";
-import Todos from "./components/containers/Movies";
-import TodoProvider from "./lib/store/context/movieContext";
+import AddMovie from "./components/AddMovie";
+import Table from "./components/table/Table";
+import MovieProvider from "./lib/store/context/movieContext";
 
 function App() {
   return (
-    <TodoProvider>
-      <main className='App flex'>
-        <div className='w-1/2 p-4'>
-          <h1>Add Movie</h1>
-          <AddTodo />
+    <MovieProvider>
+      <main className="App flex justify-center items-center h-screen dark:bg-gray-900 bg-gray-100">
+        <div className="w-2/4 p-4 mt-48">
+          <AddMovie />
         </div>
-        <div className='w-1/2 p-4'>
-          <h1>My Movies</h1>
-          <Todos />
+        <div className="w-1/2 p-4">
+          <Table />
         </div>
       </main>
-    </TodoProvider>
+    </MovieProvider>
   );
 }
 
